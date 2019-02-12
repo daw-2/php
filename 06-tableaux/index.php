@@ -27,3 +27,18 @@ foreach ($eleves as $eleve) {
 
 // Debuger un tableau
 print_r($eleves[0]['notes']);
+
+echo '<br />';
+
+// Récap tableaux
+$array = [5, 9, 11, 17, 18, 19, 15];
+
+// print_r ou var_dump nous aident à debuger
+print_r($array);
+
+// récupérer le 18
+echo $array[4] . '<br />';
+
+foreach ($array as $index => $item) {
+    echo $index .' : '. $item . '<br />';
+}
