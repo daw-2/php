@@ -64,7 +64,7 @@
 		    }
 
 		    if ($isValid) {
-			    echo 'Envoi du mail';
+                echo 'Envoi du mail';
 			}
 
 		}
