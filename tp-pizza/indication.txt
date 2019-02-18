@@ -1,0 +1,20 @@
+1 - Global:
+Vous intégrerez la maquette au plus proche, si possible en responsive.
+La police est Playfair Display.
+
+2 - Image d'accueil:
+Le texte présent sur l'image d'accueil défile toutes les 2 secondes avec une transition sur l'opacité.
+
+3 - Menu:
+Si on clique sur "Nos pizzas", une ancre nous fait scroller avec une transition jusque la zone des pizzas.
+
+4 - Zone pizza :
+Les pizzas devront être stockés dans un tableau en PHP ou JS (votre choix). Vous devrez ensuite parcourir le tableau pour afficher chaque pizza.
+Si on clique sur une pizza, on cache son image et on affiche son nom.
+Lorsqu'on clique sur une autre pizza, la pizza précédente revient à son état initial.
+
+5 - Zone pizza sélectionnée :
+La pizza selectionnée doit apparaitre en bas de la page avant le footer avec son nom et son image.
+
+6 - Footer :
+Le formulaire d'inscription à la newsletter devra être traité en PHP.
