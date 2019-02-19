@@ -60,3 +60,9 @@ INNER JOIN movie ON movie.id = movie_has_actor.movie_id
 WHERE movie.name = 'Heat';
 
 -- On veut savoir dans quel film Al Pacino et De Niro ont joués ensemble
+SELECT *, COUNT(movie.id) FROM movie_has_actor
+INNER JOIN actor ON actor.id = movie_has_actor.actor_id
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
+WHERE actor.name = 'de Niro' OR actor.name = 'Pacino'
+GROUP BY movie.id
+HAVING COUNT(movie.id) > 1;
