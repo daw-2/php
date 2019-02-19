@@ -45,9 +45,18 @@ INSERT INTO movie_has_actor (movie_id, actor_id) VALUES
 (21, 8);
 
 -- On veut afficher l'âge de tous les acteurs
+-- YEAR(NOW()) renvoie 2019
+SELECT YEAR(NOW()) - YEAR(birthday) FROM actor;
 
 -- On veut récupérer les films dans lesquels Al Pacino a joué
-
--- On veut savoir dans quel film Al Pacino et De Niro ont joués
+SELECT * FROM movie_has_actor
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
+WHERE actor_id = 1;
 
 -- On veut récupérer tous les acteurs du film Heat
+SELECT * FROM movie_has_actor
+INNER JOIN actor ON actor.id = movie_has_actor.actor_id
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
+WHERE movie.name = 'Heat';
+
+-- On veut savoir dans quel film Al Pacino et De Niro ont joués ensemble

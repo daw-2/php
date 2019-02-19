@@ -17,5 +17,5 @@ WHERE c.id IS NULL
 
 -- Récupére les catégories sans films
 SELECT * FROM movie m
-RIGHT JOIN category c ON m.category_id = c.id
+RIGHT JOIN category c ON movie.category_id = category.id
 WHERE m.id IS NULL
