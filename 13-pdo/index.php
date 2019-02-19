@@ -7,6 +7,7 @@
 // A remplacer par vos accès
 // Permet de définir des constantes (Des variables qui ne varient pas)
 define('DB_HOST', 'mysql.docker');
+// define('DB_HOST', 'localhost');
 define('DB_NAME', 'netflix2');
 define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
@@ -20,3 +21,9 @@ try {
     echo '<img src="travolta.gif" />';
     // header('Location: https://www.google.fr/search?q='.$e->getMessage());
 }
+
+// Ecrire la requête permettant de récupérer tous les films
+
+// Ecrire la requête permettant de récupérer tous les acteurs
+
+// Ecrire la requête permettant de récupérer le film Heat
