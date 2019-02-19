@@ -21,3 +21,33 @@ INSERT INTO actor (`name`, `firstname`, `birthday`) VALUES
 ('Norton', 'Edward', '1969-08-18'),
 ('Spacey', 'Kevin', '1959-07-26'),
 ('Kilmer', 'Val', '1959-12-31');
+
+-- Il faut ajouter les relations dans la table "movie_has_actor"
+-- movie_id | actor_id
+--        1 |        1
+--        1 |        2
+--        2 |        1
+--        3 |        3
+--        3 |        5
+--        4 |        3
+--        5 |        4
+--        6 |        6
+INSERT INTO movie_has_actor (movie_id, actor_id) VALUES
+(1, 1), (1, 2),
+(2, 1),
+(3, 3), (3, 5),
+(4, 1), (4, 3), (4, 10),
+(5, 4),
+(6, 6),
+(9, 7),
+(19, 7),
+(20, 9),
+(21, 8);
+
+-- On veut afficher l'âge de tous les acteurs
+
+-- On veut récupérer les films dans lesquels Al Pacino a joué
+
+-- On veut savoir dans quel film Al Pacino et De Niro ont joués
+
+-- On veut récupérer tous les acteurs du film Heat
