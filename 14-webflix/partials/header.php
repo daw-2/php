@@ -35,21 +35,24 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+
+        <?php
+          // Gestion du menu dynamique
+          $menuItems = [
+            ['label' => 'Accueil', 'link' => 'index.php'],
+            ['label' => 'Films', 'link' => 'movie_list.php'],
+            ['label' => 'Catégories', 'link' => 'category_list.php']
+          ];
+        ?>
+
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
+          <?php foreach ($menuItems as $item) { ?> 
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo $item['link']; ?>">
+                <?php echo $item['label']; ?>
+              </a>
+            </li>
+          <?php } ?>
         </ul>
       </div>
     </div>
