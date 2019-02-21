@@ -10,11 +10,25 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 
       <div class="col-lg-3">
 
+        <?php
+          /**
+           * Dynamiser la liste des catégories
+           * 1. Faire la requête SQL pour récupérer toutes les catégories.
+           * 2. On récupère un résultat, un tableau de catégories.
+           * 3. On parcourt ce tableau et on remplace la partie HTML
+           * dans la div avec la classe list-group.
+           * 4. BONUS : Utiliser fetch() au lieu de fetchAll() avec un while.
+           */
+
+          $query = $db->query('SELECT * FROM category');
+          $categories = $query->fetchAll(); // [ ['id' => 1, 'name' => 'A'], ['id' => 2, 'name' => 'B'] ]
+        ?>
+
         <h1 class="my-4">Catégories</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+          <?php foreach ($categories as $category) { ?>
+            <a href="#" class="list-group-item"><?php echo $category['name']; ?></a>
+          <?php } ?>
         </div>
 
       </div>
