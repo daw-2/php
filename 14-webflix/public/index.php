@@ -20,6 +20,14 @@ require_once __DIR__ . '/../partials/header.php'; ?>
            * 4. BONUS : Utiliser fetch() au lieu de fetchAll() avec un while.
            */
 
+          // BONUS fetch() - Méthode alternative
+          // $query = $db->query('SELECT * FROM category');
+          
+          // while ($category = $query->fetch()) { // Tant qu'il y a des résultats dans la requête
+          //   echo $category['name'];
+          // }
+          // BONUS fetch() - Méthode alternative
+
           $query = $db->query('SELECT * FROM category');
           $categories = $query->fetchAll(); // [ ['id' => 1, 'name' => 'A'], ['id' => 2, 'name' => 'B'] ]
         ?>
