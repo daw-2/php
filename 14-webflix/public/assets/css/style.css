@@ -6,4 +6,9 @@
     height: 380px;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.carousel-item .movie-cover {
+    background-size: contain;
 }
