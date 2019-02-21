@@ -82,29 +82,56 @@ require_once __DIR__ . '/../partials/header.php'; ?>
              * dans la div avec la classe col-lg-4.
              * 4. BONUUUUS : Générer un nombre d'étoiles aléatoire
              */
+
+            $query = $db->query('SELECT * FROM movie');
+            $movies = $query->fetchAll();
           ?>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">NOM DU FILM</a>
-                </h4>
-                <h5>19 janvier 1987</h5>
-                <p class="card-text">Description du film</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">
-                  &#9733;
-                  &#9733;
-                  &#9733;
-                  &#9734;
-                  &#9734;
-                </small>
+          <?php foreach ($movies as $movie) { ?>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#"><?= $movie['name']; ?></a>
+                  </h4>
+                  <h5>
+                    <?php
+                      $date = (new DateTime($movie['date']))->format('d F Y'); // 12 April 2019
+
+                      // On traduit les mois en français
+                      $date = str_replace(
+                        ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                        $date
+                      );
+
+                      echo $date;
+                     ?>
+                  </h5>
+                  <p class="card-text"><?= $movie['description']; ?></p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">
+                    <?php
+                      // Je génére un nombre d'étoiles aléatoires
+                      $stars = rand(0, 5);
+                      // J'affiche mes 5 étoiles
+                      for ($i = 1; $i <= 5; $i++) {
+                        // J'affiche les étoiles pleines si l'itération est inférieure
+                        // au nombre aléatoire $stars
+                        if ($i <= $stars) {
+                          echo '★ ';
+                        } else {
+                          echo '☆ ';
+                        }
+                      }
+                    ?>
+                  </small>
+                </div>
               </div>
             </div>
-          </div>
+          <?php } ?>
 
         </div>
         <!-- /.row -->
