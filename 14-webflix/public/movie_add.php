@@ -14,7 +14,14 @@
  * Quand le formulaire sera soumis, on récupère tous les champs du formulaire en PHP. On les vérifie et s'ils sont corrects, on exécute la requête SQL pour insérer le film en BDD. Optionnellement, on pourra également faire l'upload de la jaquette.
  */
 
-require_once __DIR__ . '/../partials/header.php'; ?>
+require_once __DIR__ . '/../partials/header.php';
+
+// Traitement du formulaire
+if (!empty($_POST)) {
+    
+}
+
+?>
 
 <div class="container my-5">
     <div class="row">
