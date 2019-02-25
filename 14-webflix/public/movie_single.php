@@ -38,12 +38,12 @@ if (!$movie) {
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            Jaquette du film
+            <img class="img-fluid" src="assets/img/<?php echo $movie['cover']; ?>" alt="<?= $movie['name']; ?>">
         </div>
 
         <div class="col-md-6">
-            <h1>Titre du film</h1>
-            <p>Année de sortie</p>
+            <h1><?= $movie['name']; ?></h1>
+            <p><?php echo formatFrenchDate($movie['date']); ?></p>
             <div>
                 Description
             </div>
