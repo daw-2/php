@@ -35,7 +35,7 @@ require_once __DIR__ . '/../partials/header.php'; ?>
         <h1 class="my-4">Catégories</h1>
         <div class="list-group">
           <?php foreach ($categories as $category) { ?>
-            <a href="#" class="list-group-item"><?php echo $category['name']; ?></a>
+            <a href="category_single.php?id=<?php echo $category['id']; ?>" class="list-group-item"><?php echo $category['name']; ?></a>
           <?php } ?>
         </div>
 
