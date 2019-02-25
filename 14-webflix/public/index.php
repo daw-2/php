@@ -97,13 +97,13 @@ require_once __DIR__ . '/../partials/header.php'; ?>
           <?php foreach ($movies as $movie) { ?>
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#">
+                <a href="movie_single.php?id=<?= $movie['id']; ?>">
                   <img class="card-img-top" src="assets/img/<?php echo $movie['cover']; ?>" alt="<?= $movie['name']; ?>">
                   <div class="movie-cover" style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
                 </a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#"><?= $movie['name']; ?></a>
+                    <a href="movie_single.php?id=<?= $movie['id']; ?>"><?= $movie['name']; ?></a>
                   </h4>
                   <h5>
                     <?php
