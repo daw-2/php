@@ -39,6 +39,8 @@ require_once __DIR__ . '/../partials/header.php'; ?>
           <?php } ?>
         </div>
 
+        <a href="movie_add.php" class="btn btn-primary btn-block mt-4">Ajouter un film</a>
+
       </div>
       <!-- /.col-lg-3 -->
 

@@ -45,7 +45,7 @@ if (!$movie) {
             <h1><?= $movie['name']; ?></h1>
             <p><?php echo formatFrenchDate($movie['date']); ?></p>
             <div>
-                Description
+                <?= $movie['description']; ?>
             </div>
         </div>
     </div>
