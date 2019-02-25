@@ -11,6 +11,28 @@ require_once __DIR__ . '/../partials/header.php';
  * 4. Si le film existe, on récupère les informations.
  * 5. Si le film n'existe pas, on affiche un message pour dire que le film n'existe pas.
  */
+
+// Récupérer l'id dans l'URL
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Exécuter la requête (préparée)
+// $query = $db->query('SELECT * FROM movie WHERE id = '.$id);
+// SELECT * FROM movie WHERE id = 5
+// SELECT * FROM movie WHERE id = 5; DROP DATABASE bdd;
+
+$query = $db->prepare('SELECT * FROM movie WHERE id = :id');
+$query->bindValue(':id', $id);
+$query->execute();
+
+// On récupère le film
+$movie = $query->fetch();
+
+// Si le film n'existe pas
+if (!$movie) {
+    echo 'Le film n\'existe pas';
+    exit; // On arrête le script
+}
+
 ?>
 
 <div class="container my-5">
