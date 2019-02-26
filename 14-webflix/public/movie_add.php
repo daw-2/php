@@ -25,9 +25,9 @@ $category_id = null;
 
 // Traitement du formulaire
 if (!empty($_POST)) {
-    $name = $_POST['name'];
+    $name = htmlspecialchars($_POST['name']);
     $date = $_POST['date'];
-    $description = $_POST['description'];
+    $description = strip_tags($_POST['description'], '<strong>');
     $cover = $_FILES['cover'];
     $category_id = $_POST['category_id'];
 

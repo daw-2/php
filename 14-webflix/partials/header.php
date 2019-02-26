@@ -1,4 +1,6 @@
 <?php
+  // Démarrer la session PHP
+  session_start();
   // Inclus les fichiers de configuration du site
   require_once __DIR__ . '/../config/functions.php';
   require_once __DIR__ . '/../config/config.php';
@@ -44,7 +46,7 @@
           ];
         ?>
 
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mr-auto">
           <?php foreach ($menuItems as $item) { ?> 
             <li class="nav-item">
               <a class="nav-link" href="<?php echo $item['link']; ?>">
@@ -52,6 +54,19 @@
               </a>
             </li>
           <?php } ?>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="sign-up.php">
+              Sign up
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php">
+              Login
+            </a>
+          </li>
         </ul>
       </div>
     </div>
