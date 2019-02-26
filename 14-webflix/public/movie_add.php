@@ -44,8 +44,6 @@ if (!empty($_POST)) {
         $errors['description'] = 'La description du film n\'est pas valide';
     }
 
-    var_dump($errors);
-
     // Si le formulaire est valide
     if (empty($errors)) {
         $query = $db->prepare('INSERT INTO movie (name, date, description, cover, category_id) VALUES (:name, :date, :description, :cover, :category_id)');
@@ -61,6 +59,19 @@ if (!empty($_POST)) {
 ?>
 
 <div class="container my-5">
+    <?php
+        // S'il y a des erreurs
+        if (!empty($errors)) {
+            echo '<div class="alert alert-danger">';
+            echo '<p>Le formulaire contient des erreurs</p>';
+            echo '<ul>';
+            foreach ($errors as $field => $error) {
+                echo '<li>'.$field.' : '.$error.'</li>';
+            }
+            echo '</ul>';
+            echo '</div>';
+        }
+    ?>
     <div class="row">
         <div class="col-md-6 offset-3">
             <form action="" method="post" enctype="multipart/form-data">
