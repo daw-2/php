@@ -28,7 +28,7 @@ if (!empty($_POST)) {
     $name = $_POST['name'];
     $date = $_POST['date'];
     $description = $_POST['description'];
-    // $cover = $_FILES['cover'];
+    $cover = $_FILES['cover'];
     $category_id = $_POST['category_id'];
 
     // Un tableau avec les erreurs potentielles du formulaire
@@ -44,6 +44,22 @@ if (!empty($_POST)) {
         $errors['description'] = 'La description du film n\'est pas valide';
     }
 
+    // Upload de la jaquette
+    if ($cover['error'] === 0) {
+        // On récupére le fichier temporaire
+        $tmpFile = $cover['tmp_name'];
+        // On récupére le nom du fichier
+        $fileName = $cover['name'];
+        // Générer un nom de fichier unique
+        $fileName = substr(md5(time()), 0, 8) . '_' . $fileName;
+        // On déplace le fichier à l'endroit désiré
+        move_uploaded_file($tmpFile, __DIR__.'/assets/img/'.$fileName);
+        // On récupère le nom du fichier pour le mettre dans la bdd
+        $cover = $fileName;
+    } else { // S'il n'y a pas d'upload
+        $cover = null;
+    }
+
     // Si le formulaire est valide
     if (empty($errors)) {
         $query = $db->prepare('INSERT INTO movie (name, date, description, cover, category_id) VALUES (:name, :date, :description, :cover, :category_id)');
@@ -52,7 +68,10 @@ if (!empty($_POST)) {
         $query->bindValue(':description', $description);
         $query->bindValue(':cover', $cover);
         $query->bindValue(':category_id', $category_id);
-        $query->execute();
+        
+        if ($query->execute()) {
+            echo '<div class="alert alert-success">Le film a bien été ajouté.</div>';
+        }
     }
 }
 
