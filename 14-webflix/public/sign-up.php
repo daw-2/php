@@ -50,11 +50,14 @@ if (!empty($_POST)) { // Si on a soumis le formulaire
         $errors['password'] = 'Le mot de passe doit contenir un caractère spécial.';
     }
 
-    var_dump($errors);
-
     // Inscription de l'utilisateur
     if (empty($errors)) {
-
+        $query = $db->prepare('INSERT INTO user (email, password) VALUES (:email, :password)');
+        $query->bindValue(':email', $email);
+        $query->bindValue(':password', $password);
+        if ($query->execute()) {
+            echo '<div class="alert alert-success">Vous êtes inscrit.</div>';
+        }
     }
 }
 
