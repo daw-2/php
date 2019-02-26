@@ -54,7 +54,7 @@ if (!empty($_POST)) { // Si on a soumis le formulaire
     if (empty($errors)) {
         $query = $db->prepare('INSERT INTO user (email, password) VALUES (:email, :password)');
         $query->bindValue(':email', $email);
-        $query->bindValue(':password', $password);
+        $query->bindValue(':password', password_hash($password, PASSWORD_DEFAULT));
         if ($query->execute()) {
             echo '<div class="alert alert-success">Vous êtes inscrit.</div>';
         }
