@@ -16,9 +16,46 @@
 
 require_once __DIR__ . '/../partials/header.php';
 
+// On déclare toutes les variables
+$name = null;
+$date = null;
+$description = null;
+$cover = null;
+$category_id = null;
+
 // Traitement du formulaire
 if (!empty($_POST)) {
-    
+    $name = $_POST['name'];
+    $date = $_POST['date'];
+    $description = $_POST['description'];
+    // $cover = $_FILES['cover'];
+    $category_id = $_POST['category_id'];
+
+    // Un tableau avec les erreurs potentielles du formulaire
+    $errors = [];
+
+    // Vérifier le name
+    if (empty($name)) {
+        $errors['name'] = 'Le nom du film n\'est pas valide';
+    }
+
+    // Vérifier la description
+    if (empty($description)) {
+        $errors['description'] = 'La description du film n\'est pas valide';
+    }
+
+    var_dump($errors);
+
+    // Si le formulaire est valide
+    if (empty($errors)) {
+        $query = $db->prepare('INSERT INTO movie (name, date, description, cover, category_id) VALUES (:name, :date, :description, :cover, :category_id)');
+        $query->bindValue(':name', $name);
+        $query->bindValue(':date', $date);
+        $query->bindValue(':description', $description);
+        $query->bindValue(':cover', $cover);
+        $query->bindValue(':category_id', $category_id);
+        $query->execute();
+    }
 }
 
 ?>
