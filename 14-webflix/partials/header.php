@@ -69,8 +69,10 @@
                  * On peut ensuite afficher une balise <img> avec un lien vers notre gravatar.
                  */
 
-
+                $hash = md5($_SESSION['user']['email']);
                 echo $_SESSION['user']['email']; ?>
+
+                <img width="40" src="https://www.gravatar.com/avatar/<?= $hash; ?>" />
               </a>
             </li>
           <?php } else { ?>
