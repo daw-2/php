@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="form.php" method="post">
+    <form id="form" action="form.php" method="post">
         <input type="text" name="firstname">
         <input type="text" name="lastname">
 
@@ -14,7 +14,10 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-        
+        $('#form').on('submit', function (event) {
+            event.preventDefault();
+            console.log('Formulaire');
+        });
     </script>
 </body>
 </html>
