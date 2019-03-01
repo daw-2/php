@@ -38,6 +38,16 @@
         // on exécutera une nouvelle requête AJAX sur le serveur pour
         // récupérer une nouvelle phrase et modifier le contenu du
         // h1.
+        var btn = document.getElementById('changeSentence');
+
+        // btn.onclick = function () {
+        btn.addEventListener('click', function () {
+            console.log('clic clac');
+            document.getElementById('text').innerHTML = 'Chargement en cours...';
+
+            xhr.open('GET', './worker.php');
+            xhr.send();
+        });
     </script>
 </body>
 </html>
