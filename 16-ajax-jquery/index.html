@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    HTML
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $.ajax({
+            type: 'POST',
+            url: './worker.php',
+            data: { foo: 'bar' }
+        }).done(function (data) {
+            console.log(data);
+        });
+
+        // Raccourci pour le GET
+        $.get('./worker.php').done(function (data) {
+            console.log(data);
+        });
+
+        // Existe aussi avec $.post(url, { foo: 'bar' })...
+        $.post('./worker.php', { foo: 'bar' }).done(function (data) {
+            console.log(data);
+        });
+    </script>
+</body>
+</html>
