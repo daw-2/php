@@ -12,11 +12,24 @@
         <button>Envoyer</button>
     </form>
 
+    <h1></h1>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $('#form').on('submit', function (event) {
             event.preventDefault();
             console.log('Formulaire');
+            
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: {
+                    firstname: $('input[name="firstname"]').val(),
+                    lastname: $('input[name="lastname"]').val()
+                }
+            }).done(function (toto) {
+                $('h1').html(toto);
+            });
         });
     </script>
 </body>
