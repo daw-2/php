@@ -48,6 +48,33 @@
             xhr.open('GET', './worker.php');
             xhr.send();
         });
+
+        // Ranger le xhr
+        function makeRequest(url, callback) {
+            var xhr = new XMLHttpRequest();
+            // On peut suivre l'évolution de la requête AJAX
+            xhr.addEventListener('readystatechange', function () {
+                if (4 === xhr.readyState) { // Réponse reçue
+                    if (200 === xhr.status) { // Réponse avec un status 200
+                        callback(xhr.response);
+                    }
+                }
+            });
+            // Je prépare la requête HTTP
+            xhr.open('GET', url);
+            // J'envoie la requête au serveur
+            xhr.send();
+        }
+
+        makeRequest('./worker.php', function (data) {
+            console.log('Premier traitement : ' + data);
+        });
+        makeRequest('./worker.php', function (data) {
+            alert(data);
+        });
+        makeRequest('./worker.php', function (data) {
+            console.log('Autre logique ' + data);
+        });
     </script>
 </body>
 </html>
