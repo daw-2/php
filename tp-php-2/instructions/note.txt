@@ -1,0 +1,50 @@
+TP PHP / MySQL:
+
+Etape 0:
+Pour réaliser ce TP, vous créerez un dépôt Github. Vous utiliserez l'outil Git afin de versionner votre projet. Vous pouvez travailler à 2 sur le même dépôt.
+
+Etape 1:
+Nous allons créer un site présentant des livres. Vous devrez créer une base de données que vous appellerez "library".
+A l'intérieur, vous créerez une table "book" avec les colonnes suivantes :
+
+- id (INT)
+- title (VARCHAR)
+- release_date (DATE)
+- price (DECIMAL)
+- isbn (VARCHAR)
+- cover (VARCHAR)
+
+Vous n'oublierez pas de découper votre site avec le header et le footer.
+
+Etape 2:
+Vous créerez une page permettant d'afficher la liste des livres en base de données.
+L'affichage se fera sous forme de grille avec des cartes Bootstrap par exemple (https://getbootstrap.com/docs/4.1/getting-started/introduction/).
+On affichera l'id, la couverture, le titre, le numéro ISBN, le prix et l'année de publication.
+Le prix sera formaté de "10.00" à "10,00 euros".
+
+Etape 3:
+Vous allez créer une page PHP : add_book.php
+Elle contiendra un formulaire permettant d'ajouter un livre dans la base de données.
+
+Le formulaire contiendra les champs suivants :
+
+- Titre (requis et 2 caractères minimum)
+- Date de publication : 3 champs select avec le jour, le mois et l'année (dynamique)
+- Prix (requis et le prix doit être de 5 euros minimum)
+- Le numéro ISBN doit être valide (ISBN 10) https://fr.wikipedia.org/wiki/International_Standard_Book_Number#Fonctionnement_de_l'ISBN.
+- La couverture : Il faudra bien vérifier le type du fichier (jpeg, jpg, png, gif) et son poids (2Mo maximum). On fera bien attention de renommer le fichier et de conserver le chemin en base de données pour pouvoir afficher l'image facilement. Vous essaierez de trouver moyen pour redimensionner l'image en 500x500 sur un fichier nom_de_l_image_500x500.jpg.
+
+Pour vous aider dans la validation du formulaire (affichage) : https://getbootstrap.com/docs/4.1/components/forms/#server-side
+
+BONUS : Vous traiterez le formulaire en AJAX.
+
+Etape 4:
+On devra pouvoir cliquer sur un livre et voir le détail de celui-ci sur une page à part. Par exemple show_book.php.
+
+BONUS : Vous récupérerez les informations du film en AJAX. Pour cela, vous aurez un second fichier show_book_api.php vous permettant de récupérer les informations d'un film en passant un id à la requête. La réponse vous donnera les informations du films et ce sera à vous de placer les éléments dans le DOM. 
+
+Etape 5:
+Il faudra pouvoir modifier un livre sur edit_book.php et supprimer un livre sur delete_book.php
+
+Etape 6:
+Vous réaliserez un système de login / inscription. Après cela, vous modifierez votre code pour que seul un utilisateur connecté puisse ajouter / modifier ou supprimer un livre.
