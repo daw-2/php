@@ -1,21 +1,22 @@
 <?php
 
-$number1 = 15;
+$number1 = 0;
 $number2 = 5;
 $number3 = 8;
-$resultat1 = $number1 + $number2 + $number3;
-$resultat2 = $number1 * ($number2 - $number3);
-$resultat3 = 'Division par 0 impossible';
 
-// Si le nombre 1 est différent de 0, on peut faire le calcul
-if ($number1 !== 0) {
-	$resultat3 = ($number3 - $number2) / $number1;
+// Vérification division par zéro
+if ($number1 === 0) {
+    $number1 = 1;
+    echo 'Number1 ne doit pas être égal à 0 <br />';
 }
 
-echo $number1 . ' + ' . $number2 . ' + ' . $number3 . ' = ' . $resultat1 . ' <br />';
-echo "$number1 x ($number2 - $number3) = $resultat2 <br />";
-echo "($number3 - $number2) / $number1 = $resultat3 <br />";
+$result1 = $number1 + $number2 + $number3;
+$result2 = $number1 * ($number2 - $number3);
+$result3 = ($number3 - $number2) / $number1;
 
-if ($resultat1 < 20 || $resultat2 < 20 || $resultat3 < 20) {
-	echo 'Une des opérations renvoie moins de 20';
-}
+// Arrondir le résultat à 2 chiffres après la virgule
+$result3 = round($result3, 2);
+
+echo $number1 . ' + ' . $number2 . ' + '. $number3 . ' = ' . ($number1 + $number2 + $number3) . ' <br />';
+echo "$number1 x ($number2 - $number3) = $result2 <br />";
+echo "($number3 - $number2) / $number1 = $result3 <br />";

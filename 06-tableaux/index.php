@@ -1,44 +1,31 @@
 <?php
 
-$eleves = []; // Crée un tableau vide
-$eleves = array(); // Crée un tableau vide
+$students = []; // Initialise un tableau vide
 
-$eleves = [ // 1ère dimension
-    0 => [ // 2ème dimension
+$students = [ // 1ère dimension
+    47 => [ // 2ème dimension
         'nom' => 'Toto',
-        'notes' => [10, 8, 6, 2, 15, 2] // 3ème dimension
+        'notes' => [12, 5, 6, 16, 20], // 3ème dimension
     ],
-    1 => [ // 2ème dimension
+    [ // Ici, l'index est 48
         'nom' => 'Titi',
-        'notes' => [4, 18, 20, 15, 13, 7]
-    ]
+        'notes' => [4, 6, 19, 20],
+    ],
 ];
 
-// Exemple pour parcourir un tableau
-foreach ($eleves as $eleve) {
-    echo $eleve['nom'];
+// Afficher le nom de chaque élève
+foreach ($students as $student) {
+    echo $student['nom'];
 
-    // echo $eleve['notes'];
-
-    foreach ($eleve['notes'] as $note) {
-        echo $note . ',';
+    foreach($student['notes'] as $note) {
+        echo $note;
     }
 }
 
-// Debuger un tableau
-print_r($eleves[0]['notes']);
+// Affiche 19
+echo $students[48]['notes'][2];
 
-echo '<br />';
-
-// Récap tableaux
-$array = [5, 9, 11, 17, 18, 19, 15];
-
-// print_r ou var_dump nous aident à debuger
-print_r($array);
-
-// récupérer le 18
-echo $array[4] . '<br />';
-
-foreach ($array as $index => $item) {
-    echo $index .' : '. $item . '<br />';
-}
+// Debug du tableau
+echo '<pre>';
+var_dump($students);
+echo '</pre>';

@@ -1,25 +1,29 @@
 <?php
 
-$global007 = 10;
-
 // Déclarer une fonction hello
-function hello($name = 'world', $lang = 'en') {
-    $local = 5;
-    return 'Hello '.$name.'!';
+function hello($name, $lang = 'fr') {
+    // Logique du code à ranger ici...
+    $hello = 'Bonjour';
+    if ('en' === $lang) {
+        $hello = 'Hello';
+    }
+    // Hallo en de
+    // Hola en es
+    $translations = [
+        'en' => 'Hello',
+        'fr' => 'Bonjour',
+        'de' => 'Hallo',
+        'es' => 'Hola',
+    ];
+
+    // Vérifier si la langue existe dans le tableau
+    if (!isset($translations[$lang])) {
+        $lang = 'fr';
+    }
+
+    return $translations[$lang].' '.$name.' !';
 }
 
-function goodBye() {
-    global $global007; // Si on veut utiliser une variable déclarée en dehors de la fonction
-    echo $global007;
-    return hello() . ' et au revoir !';
-}
-
-// Appeller une fonction
-$message = hello();
-echo $message; // Affiche "Hello world!"
-echo hello('Matthieu', 'fr'); // Affiche "Hello Matthieu!"
-echo hello('Thomas'); // Affiche "Hello Thomas!"
-
-echo goodBye();
-
-echo $local; // Undefined (Variable locale)
+echo strtoupper(hello('Toto')); // Affiche "BONJOUR TOTO"
+echo hello('Titi', 'en'); // Affiche "Hello Titi"
+echo hello('Tata', 'it'); // Affiche "Bonjour Tata"

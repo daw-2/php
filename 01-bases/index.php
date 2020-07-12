@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>PHP : Les bases</title>
+    <title>Document</title>
 </head>
 <body>
     <?php
-        // Ici, je peux écrire mon code PHP
-        echo '<h1>L\'titre</h1>';
+        // J'affiche un texte sur le navigateur
+        echo 'Salut les gens';
+
+        echo '<br />';
+
+        // Si on veut utiliser une quote dans la chaine
+        echo 'L\'HTML dans <br /> le PHP';
     ?>
+    <h1>Votre HTML</h1>
 </body>
 </html>

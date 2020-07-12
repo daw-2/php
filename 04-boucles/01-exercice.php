@@ -1,4 +1,5 @@
 <?php
+
 /*
 1. Ecrire une boucle qui affiche les nombres de 10 à 1
 2. Ecrire une boucle qui affiche uniquement les nombres pairs entre 1 et 100
@@ -13,78 +14,68 @@
 echo '<h2>1. Ecrire une boucle qui affiche les nombres de 10 à 1</h2>';
 
 for ($i = 10; $i > 0; $i--) {
-	echo $i . ' - ';
+    echo $i.' ';
 }
 
 echo '<h2>2. Ecrire une boucle qui affiche uniquement les nombres pairs entre 1 et 100</h2>';
 
 for ($i = 1; $i <= 100; $i++) {
-    // if ($i % 2 == 0) {
-	if (0 === $i % 2) { // Yoda condition
-		echo $i . ' - ';
-	}
+    // $isEven = is_int($i / 2);
+    if ($i % 2 === 0) { // $i est pair
+        echo $i.' ';
+    }
 }
 
 echo '<h2>3. Ecrire le code permettant de trouver le PGCD de 2 nombres</h2>';
 
-// 845 % 312 = 221;
-// 312 % 221 = 91;
-// 221 % 91 = 39;
-// 91 % 39 = 13;
-// 39 % 13 = 0;
-// echo gmp_gcd(845, 312);
+$n1 = 96;
+$n2 = 36;
 
-/* Méthode avec division euclidienne
-$nombre1 = 845;
-$nombre2 = 312;
+// 96 - 36 = 60
+// 60 - 36 = 24
+// 36 - 24 = 12
 do {
-	// Calculer le reste de la division du plus grand nombre par le plus petit
-	$reste = $nombre1 % $nombre2;
-	// Si le reste est à 0, le pgcd est le nombre 2
-	if ($reste == 0) {
-		$pgcd = $nombre2;
-	}
-	$nombre1 = $nombre2; // 845 devient 312
-	$nombre2 = $reste; // 312 devient 221
-} while ($reste !== 0);
-
-echo $pgcd;
-*/
-
-// 96 - 36 = 60;
-// 60 - 36 = 24;
-// 36 - 24 = 12;
-// 24 - 12 = 12;
-// 12 - 12 = 0;
-
-$number1 = $cloneNumber1 = 96;
-$number2 = $cloneNumber2 = 36;
-$result = 0;
-
-while ($result == 0) {
-    if ($number1 > $number2) {
-        $number1 = $number1 - $number2;
+    $result = $n1 - $n2; // 96 - 36 = 60
+    if ($result > $n2) { // 60 > 36 ?
+        $n1 = $result;
     } else {
-        $number2 = $number2 - $number1;
+        $n1 = $n2;
+        $n2 = $result;
     }
-
-    if ($number2 == 0) {
-        $result = $number1;
+    // $n1 = ($result > $n2) ? $result : $n2;
+    if ($n2 === 0) {
+        $pgcd = $n1;
     }
-}
+} while($result != 0);
 
-echo "Le PGCD de $cloneNumber1 et $cloneNumber2 est $result";
+echo "Le PGCD de 96 et 36 est $pgcd";
+
+echo '<h2>3.1. PGCD avec division</h2>';
+
+$n1 = 758;
+$n2 = 306;
+
+do {
+    $result = $n1 % $n2; // Reste 146
+    if ($result === 0) {
+        $pgcd = $n2;
+    }
+    $n1 = $n2; // 758 devient 306
+    $n2 = $result; // 306 devient 146
+} while ($result != 0);
+
+echo "Le PGCD de 758 et 306 est $pgcd";
 
 echo '<h2>4. Le jeu du FizzBuzz</h2>';
 
-for ($i = 0; $i <= 100; $i++) {
-	if ($i % 15 == 0) {
-		echo 'FizzBuzz, ';
-	} else if ($i % 3 == 0) {
-		echo 'Fizz, ';
-	} else if ($i % 5 == 0) {
-		echo 'Buzz, ';
-	} else {
-		echo $i . ', ';
-	}
+for ($i = 1; $i <= 100; $i++) {
+    if ($i % 15 === 0) { // $i est divisible par 15 ?
+        echo 'FizzBuzz - ';
+    } else if ($i % 3 === 0) { // $i est divisible par 3 ?
+        echo 'Fizz - ';
+    } else if ($i % 5 === 0) { // $i est divisible par 5 ?
+        echo 'Buzz - ';
+    } else {
+        echo $i.' - ';
+    }
 }
