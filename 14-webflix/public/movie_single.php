@@ -29,57 +29,86 @@ if ($movie) {
             <img class="img-fluid" src="uploads/<?= $movie['cover']; ?>" alt="<?= $movie['title']; ?>">
         </div>
         <div class="col-lg-6">
-            <h1><?= $movie['title']; ?></h1>
-            <!--
-                Dans la BDD, on stocke la durée sous forme de minutes : 120
-                Sur la fiche du film, il faut afficher 2h00.
-                On va créer une fonction convertToHours(300) -> 5h00
-            -->
-            <p>Durée: <?= convertToHours($movie['duration']); ?></p>
+            <div class="card shadow-lg rounded-lg">
+                <div class="card-body">
+                    <h1><?= $movie['title']; ?></h1>
+                    <!--
+                        Dans la BDD, on stocke la durée sous forme de minutes : 120
+                        Sur la fiche du film, il faut afficher 2h00.
+                        On va créer une fonction convertToHours(300) -> 5h00
+                    -->
+                    <p>Durée: <?= convertToHours($movie['duration']); ?></p>
 
-            <?php
-                // L'objet DateTime
-                $date = new DateTime($movie['released_at']); // Générer la date du film
-                // echo $date->format('d F Y');
-            ?>
+                    <?php
+                        // L'objet DateTime
+                        $date = new DateTime($movie['released_at']); // Générer la date du film
+                        // echo $date->format('d F Y');
+                    ?>
 
-            <p>Sorti le <?= $date->format('d F Y'); ?></p>
-            <div>
-                <?= $movie['description']; ?>
+                    <p>Sorti le <?= formatFrenchDate($date->format('d F Y')); ?></p>
+                    <div>
+                        <?= $movie['description']; ?>
+                    </div>
+
+                    <?php
+                        /**
+                         * Pour les acteurs
+                         * 1/ On va devoir ajouter des acteurs dans la BDD
+                         * 2/ Lier des acteurs à leurs films (table movie_has_actor)
+                         * 3/ Modifier le ul ci dessous pour afficher en dynamique les
+                         * acteurs de ce film
+                         * 4/ BONUS : On pourra cliquer sur un acteur et voir tous les films
+                         * dans lesquels il a joué
+                         */
+                        $actors = $db->query(
+                        "SELECT * FROM movie_has_actor
+                            INNER JOIN actor ON actor_id = id
+                            WHERE movie_id = $id
+                        ")->fetchAll();
+                    ?>
+                    <div class="mt-5">
+                        <h5>Avec :</h5>
+                        <ul class="list-unstyled">
+                            <?php foreach ($actors as $actor) {
+                                $fullName = $actor['firstname'].' '.$actor['name'];
+                                ?>
+                                <li>
+                                    <a href="actor_single.php?id=<?= $actor['id']; ?>">
+                                        <?= $fullName; ?>
+                                    </a>
+                                    <a href="https://fr.wikipedia.org/wiki/<?= $fullName; ?>#Filmographie" target="_blank">
+                                        (Wikipedia)
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <small class="text-muted">
+                        <?php
+                            // Je génére un nombre d'étoiles aléatoires
+                            $stars = rand(0, 5);
+                            // J'affiche mes 5 étoiles
+                            for ($i = 1; $i <= 5; $i++) {
+                                // J'affiche les étoiles pleines si l'itération est inférieure
+                                // au nombre aléatoire $stars
+                                if ($i <= $stars) {
+                                echo '★ ';
+                                } else {
+                                echo '☆ ';
+                                }
+                            }
+                        ?>
+                    </small>
+                </div>
             </div>
 
-            <?php
-                /**
-                 * Pour les acteurs
-                 * 1/ On va devoir ajouter des acteurs dans la BDD
-                 * 2/ Lier des acteurs à leurs films (table movie_has_actor)
-                 * 3/ Modifier le ul ci dessous pour afficher en dynamique les
-                 * acteurs de ce film
-                 * 4/ BONUS : On pourra cliquer sur un acteur et voir tous les films
-                 * dans lesquels il a joué
-                 */
-                $actors = $db->query(
-                   "SELECT * FROM movie_has_actor
-                    INNER JOIN actor ON actor_id = id
-                    WHERE movie_id = $id
-                ")->fetchAll();
-            ?>
-            <div class="mt-5">
-                <h5>Avec :</h5>
-                <ul class="list-unstyled">
-                    <?php foreach ($actors as $actor) {
-                        $fullName = $actor['firstname'].' '.$actor['name'];
-                        ?>
-                        <li>
-                            <a href="actor_single.php?id=<?= $actor['id']; ?>">
-                                <?= $fullName; ?>
-                            </a>
-                            <a href="https://fr.wikipedia.org/wiki/<?= $fullName; ?>#Filmographie" target="_blank">
-                                (Wikipedia)
-                            </a>
-                        </li>
-                    <?php } ?>
-                </ul>
+            <div class="card shadow-lg rounded-lg mt-5">
+                <div class="card-body">
+                    Commentaires ?
+                </div>
             </div>
         </div>
     </div>

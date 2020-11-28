@@ -3,7 +3,7 @@
 // Inclure le header
 require __DIR__ . '/../partials/header.php'; ?>
 
-<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide mb-4" style="margin-top: -1.5rem" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -12,17 +12,21 @@ require __DIR__ . '/../partials/header.php'; ?>
     <div class="carousel-inner" role="listbox">
         <?php
             /**
-             * On veut afficher 3 films aléatoires dans le carousel. (ORDER BY)
+             * On veut afficher 9 films aléatoires dans le carousel. (ORDER BY)
+             * On doit avoir 3 films par slide.
              * Ces films devront être des films avec une jaquette. (WHERE ... NOT NULL)
-             * Si on a moins de 3 films avec jaquette, on affiche ces films.
              */
-            $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 3');
+            $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 9');
             $movies = $query->fetchAll();
         ?>
 
-        <?php foreach ($movies as $key => $movie) { ?>
+        <?php foreach ([0, 3, 6] as $key) { ?>
             <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?>">
-            <div class="movie-cover" style="background-image: url(uploads/<?php echo $movie['cover']; ?>)"></div>
+                <div class="d-flex">
+                    <div class="movie-cover" style="background-image: url(uploads/<?php echo $movies[$key]['cover']; ?>)"></div>
+                    <div class="movie-cover" style="background-image: url(uploads/<?php echo $movies[$key + 1]['cover']; ?>)"></div>
+                    <div class="movie-cover" style="background-image: url(uploads/<?php echo $movies[$key + 2]['cover']; ?>)"></div>
+                </div>
             </div>
         <?php } ?>
 

@@ -26,10 +26,19 @@ if (!empty($_POST)) {
             // On va rediriger l'utilisateur vers l'accueil
             header('Location: index.php');
             exit;
-            echo 'ON SE CONNECTE';
         } else {
-            echo 'MOT DE PASSE INCORRECT';
+            $errors['password'] = 'Utilisateur ou mot de passe incorrect';
         }
+    } else {
+        $errors['user'] = 'Utilisateur ou mot de passe incorrect';
+    }
+
+    if (!empty($errors)) {
+        echo '<div class="container alert alert-danger">';
+        foreach ($errors as $error) {
+            echo '<p class="text-danger m-0">'.$error.'</p>';
+        }
+        echo '</div>';
     }
 
 }

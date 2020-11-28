@@ -59,8 +59,8 @@
               </div>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Recherche...">
+          <form class="form-inline my-2 my-lg-0" action="movie_search.php">
+            <input class="form-control mr-sm-2" name="q" type="search" placeholder="Recherche...">
             <button class="btn btn-outline-danger my-2 my-sm-0">Go</button>
           </form>
           <?php

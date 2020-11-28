@@ -19,12 +19,12 @@ if (isset($_GET['idCategory'])) {
     $id = intval($_GET['idCategory']);
     $sort = $_GET['sort'] ?? 'released_at';
     $url = 'movie_list.php?idCategory='.$id.'&';
-    $movies = $db->query("SELECT * FROM movie WHERE category_id = $id ORDER BY $sort DESC");
+    $movies = $db->query("SELECT * FROM movie WHERE category_id = $id ORDER BY $sort ASC");
 } else {
     // Récupèrer tous les films
     $sort = $_GET['sort'] ?? 'released_at'; // isset($_GET['sort']) ? $_GET['sort'] : 'released_at';
     $url = 'movie_list.php?'; // On se sert de cette variable pour générer le lien du tri
-    $movies = $db->query("SELECT * FROM movie ORDER BY $sort DESC");
+    $movies = $db->query("SELECT * FROM movie ORDER BY $sort ASC");
 }
 
 if (isset($_GET['success']) && $_GET['success'] == 1) {
