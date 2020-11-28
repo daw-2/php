@@ -54,4 +54,4 @@ $query = $db->query('SELECT * FROM movie WHERE id = 4');
 $movie = $query->fetch(PDO::FETCH_ASSOC);
 var_dump($movie);
 // Afficher le nom du film
-echo $movie['name'];
+echo $movie['title'];

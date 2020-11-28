@@ -69,7 +69,7 @@ $movies = $q->fetchAll();
 echo '<ul>';
 foreach ($movies as $movie) { ?>
     <li>
-        <?= $movie['name'] . ' sorti le '. $movie['date']; ?> <br />
+        <?= $movie['name'] . ' sorti le '. $movie['released_at']; ?> <br />
         <img src="./uploads/<?= $movie['cover']; ?>" width="150"> <br />
         <strong><?= $movie['description']; ?></strong>
         <a href="?deleteMovie=<?= $movie['id']; ?>">X</a>

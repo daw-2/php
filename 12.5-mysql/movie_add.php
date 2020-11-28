@@ -5,7 +5,7 @@
     // Traitement PHP pour ajouter le film
     // Récupère les données du formulaire
     $name = htmlspecialchars($_POST['name'] ?? null);
-    $date = $_POST['date'] ?? null;
+    $releasedAt = $_POST['released_at'] ?? null;
     $description = $_POST['description'] ?? null;
     $category = $_POST['category'] ?? null;
 
@@ -13,12 +13,12 @@
         // Je dois faire une requête SQL (préparée)
         $query = $db->prepare(
             "INSERT INTO
-            movie (`name`, `date`, `description`, `cover`, `category_id`)
-            VALUES (:name, :date, :description, :cover, :category)"
+            movie (`name`, `released_at`, `description`, `cover`, `category_id`)
+            VALUES (:name, :released_at, :description, :cover, :category)"
         );
         // Je dois remplacer les paramètres de la requête
         $query->bindValue(':name', $name);
-        $query->bindValue(':date', $date);
+        $query->bindValue(':released_at', $releasedAt);
         $query->bindValue(':description', $description);
         $query->bindValue(':category', $category);
 
@@ -52,8 +52,8 @@
     </div>
 
     <div>
-        <label for="date">Date</label>
-        <input type="date" name="date" id="date">
+        <label for="released_at">Date</label>
+        <input type="date" name="released_at" id="released_at">
     </div>
 
     <div>

@@ -18,11 +18,11 @@ $db = new PDO(
 // On récupére une chaine dans l'URL
 $search = $_GET['search']; // "Heat"
 
-echo 'SELECT * FROM movie WHERE `name` LIKE "%'. $search . '%"<br />';
+echo 'SELECT * FROM movie WHERE `title` LIKE "%'. $search . '%"<br />';
 
 // On fait une requête préparée
 // :search est un paramètre
-$query = $db->prepare('SELECT * FROM movie WHERE `name` LIKE :search');
+$query = $db->prepare('SELECT * FROM movie WHERE `title` LIKE :search');
 // On remplace les paramètres par des valeurs
 $query->bindValue(':search', '%'.$search.'%');
 // Ne pas oublier d'exécuter la requête

@@ -82,9 +82,10 @@ INSERT INTO `category` (`id`, `name`) VALUES
 
 CREATE TABLE `movie` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `released_at` date DEFAULT NULL,
   `description` longtext,
+  `cover` varchar(255) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -92,30 +93,30 @@ CREATE TABLE `movie` (
 -- Déchargement des données de la table `movie`
 --
 
-INSERT INTO `movie` (`id`, `name`, `date`, `description`, `category_id`) VALUES
-(1, 'Le Parrain', '1972-01-01', 'Lorem ipsum', NULL),
-(2, 'Scarface', '1983-01-01', 'Lorem ipsum', 1),
-(3, 'Les Affranchis', '1990-01-01', 'Lorem ipsum', 1),
-(4, 'Heat', '1995-01-01', 'Lorem ipsum', 1),
-(5, 'Die Hard', '1988-01-01', 'Lorem ipsum', 2),
-(6, 'Demolition Man', '1993-01-01', 'Lorem ipsum', 2),
-(7, 'Taken', '2008-01-01', 'Lorem ipsum', 2),
-(8, 'Deadpool', '2016-01-01', 'Lorem ipsum', 2),
-(9, 'Expandable', '2010-01-01', 'Lorem ipsum', 2),
-(10, 'Scream', '1996-01-01', 'Lorem ipsum', 3),
-(11, 'Vendredi 13', '1980-01-01', 'Lorem ipsum', 3),
-(12, 'Saw', '2005-01-01', 'Lorem ipsum', 3),
-(13, 'Scary Movie', '2000-01-01', 'Lorem ipsum', 3),
-(14, 'Star Wars IV Un nouvel espoir', '1977-01-01', 'Lorem ipsum', 4),
-(15, 'Alien', '1979-01-01', 'Lorem ipsum', 4),
-(16, 'ET', '1982-01-01', 'Lorem ipsum', 4),
-(17, 'Robocop', '1987-01-01', 'Lorem ipsum', 4),
-(18, 'The Game', '1997-01-01', 'Lorem ipsum', 5),
-(19, 'Sixième Sens', '1999-01-01', 'Lorem ipsum', 5),
-(20, 'Usual Suspects', '1995-01-01', 'Lorem ipsum', 5),
-(21, 'Fight Club', '1999-01-01', 'Lorem ipsum', 5),
-(22, 'Inception', '2010-01-01', 'Lorem ipsum', 5),
-(23, 'Deadpool 2', '2019-02-19', NULL, 2);
+INSERT INTO `movie` (`id`, `title`, `released_at`, `description`, `cover`, `category_id`) VALUES
+(1, 'Le Parrain', '1972-01-01', 'Lorem ipsum', 'le-parrain.jpg', NULL),
+(2, 'Scarface', '1983-01-01', 'Lorem ipsum', 'scarface.jpg', 1),
+(3, 'Les Affranchis', '1990-01-01', 'Lorem ipsum', 'les-affranchis.jpg', 1),
+(4, 'Heat', '1995-01-01', 'Lorem ipsum', 'heat.jpg', 1),
+(5, 'Die Hard', '1988-01-01', 'Lorem ipsum', 'die-hard.jpg', 2),
+(6, 'Demolition Man', '1993-01-01', 'Lorem ipsum', 'demolition-man.jpg', 2),
+(7, 'Taken', '2008-01-01', 'Lorem ipsum', 'taken.jpg', 2),
+(8, 'Deadpool', '2016-01-01', 'Lorem ipsum', 'deadpool.jpg', 2),
+(9, 'The Expandables', '2010-01-01', 'Lorem ipsum', 'the-expandables.jpg', 2),
+(10, 'Scream', '1996-01-01', 'Lorem ipsum', 'scream.jpg', 3),
+(11, 'Vendredi 13', '1980-01-01', 'Lorem ipsum', 'vendredi-13.jpg', 3),
+(12, 'Saw', '2005-01-01', 'Lorem ipsum', 'saw.jpg', 3),
+(13, 'Scary Movie', '2000-01-01', 'Lorem ipsum', 'scary-movie.jpg', 3),
+(14, 'Star Wars IV Un nouvel espoir', '1977-01-01', 'Lorem ipsum', 'star-wars-iv-un-nouvel-espoir.jpg', 4),
+(15, 'Alien', '1979-01-01', 'Lorem ipsum', 'alien.jpg', 4),
+(16, 'ET', '1982-01-01', 'Lorem ipsum', 'et.jpg', 4),
+(17, 'Robocop', '1987-01-01', 'Lorem ipsum', 'robocop.jpg', 4),
+(18, 'The Game', '1997-01-01', 'Lorem ipsum', 'the-game.jpg', 5),
+(19, 'Sixième Sens', '1999-01-01', 'Lorem ipsum', 'sixieme-sens.jpg', 5),
+(20, 'Usual Suspects', '1995-01-01', 'Lorem ipsum', 'usual-suspects.jpg', 5),
+(21, 'Fight Club', '1999-01-01', 'Lorem ipsum', 'fight-club.jpg', 5),
+(22, 'Inception', '2010-01-01', 'Lorem ipsum', 'inception.jpg', 5),
+(23, 'Deadpool 2', '2019-02-19', NULL, 'deadpool-2.jpg', 2);
 
 -- --------------------------------------------------------
 

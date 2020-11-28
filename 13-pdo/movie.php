@@ -35,7 +35,7 @@ $movie = $query->fetch();
 // Si le film existe en BDD
 if ($movie) {
     // On affiche le nom du film
-    echo $movie['name'];
+    echo $movie['title'];
 } else {
     echo 'Le film n\'existe pas';
 }
