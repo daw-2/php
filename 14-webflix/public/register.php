@@ -99,6 +99,8 @@ if (!empty($_POST)) { // Si le formulaire a été saisi
 ?>
 
 <div class="container">
+    <h1 class="text-center">Inscription</h1>
+
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
             <form action="" method="post">

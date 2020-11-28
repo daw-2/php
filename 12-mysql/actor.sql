@@ -10,17 +10,17 @@
 -- Kevin Spacey (26 07 1959)
 -- Val Kilmer (31 12 1959)
 
-INSERT INTO actor (`name`, `firstname`, `birthday`) VALUES
-('Pacino', 'Al', '1940-04-25'),
-('Brando', 'Marlon', '1924-04-03'),
-('de Niro', 'Robert', '1943-08-17'),
-('Willis', 'Bruce', '1955-03-19'),
-('Liotta', 'Ray', '1954-12-18'),
-('Snipes', 'Wesley', '1962-07-31'),
-('Stalone', 'Sylvester', '1946-07-06'),
-('Norton', 'Edward', '1969-08-18'),
-('Spacey', 'Kevin', '1959-07-26'),
-('Kilmer', 'Val', '1959-12-31');
+INSERT INTO `actor` (`id`, `name`, `firstname`, `birthday`) VALUES
+(1, 'Pacino', 'Al', '1940-04-25'),
+(2, 'Brando', 'Marlon', '1924-04-03'),
+(3, 'de Niro', 'Robert', '1943-08-17'),
+(4, 'Willis', 'Bruce', '1955-03-19'),
+(5, 'Liotta', 'Ray', '1954-12-18'),
+(6, 'Snipes', 'Wesley', '1962-07-31'),
+(7, 'Stalone', 'Sylvester', '1946-07-06'),
+(8, 'Norton', 'Edward', '1969-08-18'),
+(9, 'Spacey', 'Kevin', '1959-07-26'),
+(10, 'Kilmer', 'Val', '1959-12-31');
 
 -- Il faut ajouter les relations dans la table "movie_has_actor"
 -- movie_id | actor_id
@@ -38,9 +38,9 @@ INSERT INTO movie_has_actor (movie_id, actor_id) VALUES
 (3, 3), (3, 5),
 (4, 1), (4, 3), (4, 10),
 (5, 4),
-(6, 6),
+(6, 6), (6, 7),
 (9, 7),
-(19, 7),
+(19, 4),
 (20, 9),
 (21, 8);
 

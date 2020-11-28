@@ -23,6 +23,10 @@ On va créer un clone de Netflix afin d'apprendre à créer un projet en PHP / S
 - `public/assets/img`
 - `public/assets/uploads` : Dossier qui contient les images uploadées (Films, avatars)
 
+## Fonctionalités attendues
+
+Le client nous a donné une liste de maquettes, ce qui va nous permettre de déduire les fonctionnalités à développer sur le site.
+
 ## Base de données
 
 Voici les tables à créer :
@@ -69,5 +73,5 @@ Voici les tables à créer :
     - id
     - user_id
     - stripe_id
+    - amount
     - status
-    - ends_at

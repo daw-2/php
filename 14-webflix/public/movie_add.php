@@ -1,136 +1,152 @@
 <?php
 
 /**
- * Ce fichier va nous permettre d'ajouter un film en base de données.
+ * Formulaire d'ajout de film
  * 
- * On affichera d'abord un formulaire correctement configuré pour faire de l'upload.
- * Le formulaire contiendra 5 champs :
- * - Le titre: champ de type text
- * - La date: champ de type date
- * - La description: champ textarea
- * - La jaquette: champ de type file
- * - La catégorie: champ select avec toutes les catégories de la BDD en option. Le value de l'option sera l'id de la catégorie. "<option value="1">Film de gangsters</option>"
- * 
- * Quand le formulaire sera soumis, on récupère tous les champs du formulaire en PHP. On les vérifie et s'ils sont corrects, on exécute la requête SQL pour insérer le film en BDD. Optionnellement, on pourra également faire l'upload de la jaquette.
+ * Ici, on va créer un formulaire permettant d'ajouter un film.
+ * Le champ title devra faire 2 caractères minimum.
+ * Le champ description devra faire 15 caractères minimum.
+ * On pourra uploader une jaquette. Le nom du fichier uploadé doit être le nom du film "transformé", "Le Parrain" -> "le-parrain.jpg"
+ * Le champ durée devra être un nombre entre 1 et 999.
+ * Le champ released_at devra être une date valide.
+ * Le champ category devra être un select généré dynamiquement avec les catégories de la BDD
+ * On doit afficher les messages d'erreurs et s'il n'y a pas d'erreurs on ajoute le film et on redirige sur la page movie_list.php
+ * BONUS : Il faudrait afficher un message de succès après la redirection. Il faudra utiliser soit la session, soit un paramètre dans l'URL
  */
 
-require_once __DIR__ . '/../partials/header.php';
+// Inclure le header
+require __DIR__ . '/../partials/header.php';
 
-// On déclare toutes les variables
-$name = null;
-$date = null;
-$description = null;
-$cover = null;
-$category_id = null;
+// On autorise que les admin à aller sur cette page
+if (!isAdmin()) {
+    echo 'Interdit';
+    require __DIR__ . '/../partials/footer.php';
+    die();
+}
 
-// Traitement du formulaire
+$categories = $db->query('SELECT * FROM category')->fetchAll();
+
+$title = $_POST['title'] ?? null;
+$description = $_POST['description'] ?? null;
+$cover = $_FILES['cover'] ?? null;
+$duration = $_POST['duration'] ?? null;
+$released_at = $_POST['released_at'] ?? null;
+$categorySelected = $_POST['category'] ?? null;
+
+// Traitement formulaire
 if (!empty($_POST)) {
-    $name = htmlspecialchars($_POST['name']);
-    $date = $_POST['date'];
-    $description = strip_tags($_POST['description'], '<strong>');
-    $cover = $_FILES['cover'];
-    $category_id = $_POST['category_id'];
-
-    // Un tableau avec les erreurs potentielles du formulaire
     $errors = [];
 
-    // Vérifier le name
-    if (empty($name)) {
-        $errors['name'] = 'Le nom du film n\'est pas valide';
+    if (strlen($title) < 2) {
+        $errors['title'] = 'Le titre est trop court';
     }
 
-    // Vérifier la description
-    if (empty($description)) {
-        $errors['description'] = 'La description du film n\'est pas valide';
+    if (strlen($description) < 15) {
+        $errors['description'] = 'La description est trop courte';
     }
 
-    // Upload de la jaquette
+    if ($duration < 1 || $duration > 999) {
+        $errors['duration'] = 'La durée n\'est pas bonne';
+    }
+
+    $released_at = empty($released_at) ? '0000-00-00' : $released_at;
+    $date = explode('-', $released_at);
+
+    if (!checkdate($date[1], $date[2], $date[0])) {
+        $errors['released_at'] = 'La date n\'est pas bonne';
+    }
+
+    //if (!$categorySelected) {
+    //    $errors['category'] = 'La categorie n\'existe pas';
+    //}
+
     if ($cover['error'] === 0) {
-        // On récupére le fichier temporaire
-        $tmpFile = $cover['tmp_name'];
-        // On récupére le nom du fichier
-        $fileName = $cover['name'];
-        // Générer un nom de fichier unique
-        $fileName = substr(md5(time()), 0, 8) . '_' . $fileName;
-        // On déplace le fichier à l'endroit désiré
-        move_uploaded_file($tmpFile, __DIR__.'/assets/img/'.$fileName);
-        // On récupère le nom du fichier pour le mettre dans la bdd
-        $cover = $fileName;
-    } else { // S'il n'y a pas d'upload
-        $cover = null;
+        // On fait l'upload
+        // Récupèrer l'emplacement temporaire du fichier
+        $file = $cover['tmp_name'];
+        // Renommer le fichier (optionnel)
+        $originalName = $cover['name'];
+        // Récupère l'extension du fichier
+        $extension = pathinfo($originalName)['extension']; // jpg, pdf, png...
+        $filename = str_replace([' ', ','], '-', strtolower($title)).'.'.$extension;
+        // Le, Parrain => le-parrain.jpg
+        // Déplacer le fichier vers un répertoire
+        move_uploaded_file($file, __DIR__.'/uploads/'.$filename);
+    } else {
+        $errors['cover'] = 'Il faut une image';
     }
 
-    // Si le formulaire est valide
+    // On fait la requête
     if (empty($errors)) {
-        $query = $db->prepare('INSERT INTO movie (name, date, description, cover, category_id) VALUES (:name, :date, :description, :cover, :category_id)');
-        $query->bindValue(':name', $name);
-        $query->bindValue(':date', $date);
+        $query = $db->prepare(
+            'INSERT INTO movie (title, description, cover, duration, released_at, category_id)
+             VALUES (:title, :description, :cover, :duration, :released_at, :category_id)'
+        );
+        $query->bindValue(':title', $title);
         $query->bindValue(':description', $description);
-        $query->bindValue(':cover', $cover);
-        $query->bindValue(':category_id', $category_id);
-        
-        if ($query->execute()) {
-            echo '<div class="alert alert-success">Le film a bien été ajouté.</div>';
+        $query->bindValue(':cover', $filename);
+        $query->bindValue(':duration', $duration);
+        $query->bindValue(':released_at', $released_at);
+        $query->bindValue(':category_id', $categorySelected);
+        $query->execute();
+
+        header('Location: movie_list.php?success=1');
+    } else {
+        /**
+         * Afficher les erreurs
+         */
+        echo '<div class="container">';
+        foreach ($errors as $error) {
+            echo '<div class="alert alert-danger">'.$error.'</div>';
         }
+        echo '</div>';
     }
+
 }
 
 ?>
 
-<div class="container my-5">
-    <?php
-        // S'il y a des erreurs
-        if (!empty($errors)) {
-            echo '<div class="alert alert-danger">';
-            echo '<p>Le formulaire contient des erreurs</p>';
-            echo '<ul>';
-            foreach ($errors as $field => $error) {
-                echo '<li>'.$field.' : '.$error.'</li>';
-            }
-            echo '</ul>';
-            echo '</div>';
-        }
-    ?>
+<div class="container">
     <div class="row">
-        <div class="col-md-6 offset-3">
+        <div class="col-lg-6 offset-lg-3">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="name">Titre</label>
-                    <input type="text" name="name" id="name" class="form-control">
+                    <label for="title">Titre</label>
+                    <input type="text" name="title" id="title" class="form-control" value="<?= $title; ?>">
                 </div>
-
-                <div class="form-group">
-                    <label for="date">Date de sortie</label>
-                    <input type="date" name="date" id="date" class="form-control">
-                </div>
-
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" class="form-control"></textarea>
+                    <textarea name="description" id="description" class="form-control"><?= $description; ?></textarea>
                 </div>
-
                 <div class="form-group">
                     <label for="cover">Jaquette</label>
                     <input type="file" name="cover" id="cover" class="form-control">
                 </div>
-
                 <div class="form-group">
-                    <label for="category_id">Catégorie</label>
-                    <select name="category_id" id="category_id" class="form-control">
-                        <?php
-                            $query = $db->query('SELECT * FROM category');
-                            $categories = $query->fetchAll();
-                            foreach ($categories as $category) {
-                                echo '<option value="'.$category['id'].'">'.$category['name'].'</option>';
-                            }
-                        ?>
+                    <label for="duration">Durée</label>
+                    <input type="text" name="duration" id="duration" class="form-control" value="<?= $duration; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="released_at">Sortie</label>
+                    <input type="date" name="released_at" id="released_at" class="form-control" value="<?= $released_at; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="category">Catégorie</label>
+                    <select class="form-control" name="category">
+                        <?php foreach ($categories as $category) { ?>
+    <option <?= ($category['id'] == $categorySelected) ? 'selected' : ''; ?> value="<?= $category['id']; ?>">
+                                <?= $category['name']; ?>
+                            </option>
+                        <?php } ?>
                     </select>
                 </div>
 
-                <button class="btn btn-primary btn-block">Ajouter le film</button>
+                <button class="btn btn-danger btn-block">Ajouter</button>
             </form>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../partials/footer.php';
+<?php
+// Inclure le footer
+require __DIR__ . '/../partials/footer.php';

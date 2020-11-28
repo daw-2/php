@@ -1,93 +1,105 @@
 <?php
-  // Démarrer la session PHP
+  // On démarre les sessions
   session_start();
   // Inclus les fichiers de configuration du site
-  require_once __DIR__ . '/../config/functions.php';
   require_once __DIR__ . '/../config/config.php';
   require_once __DIR__ . '/../config/database.php';
+  require_once __DIR__ . '/../config/functions.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
 
-<head>
+    <title><?= $siteName; ?></title>
+  </head>
+  <body>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="index.php"><?= $siteName; ?></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <title>Shop Homepage - Start Bootstrap Template</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="index.php"><?php echo $siteName; ?></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-
-        <?php
-          // Gestion du menu dynamique
-          $menuItems = [
-            ['label' => 'Films', 'link' => 'index.php'],
-            ['label' => 'Catégories', 'link' => 'category_list.php']
-          ];
-        ?>
-
-        <ul class="navbar-nav mr-auto">
-          <?php foreach ($menuItems as $item) { ?> 
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo $item['link']; ?>">
-                <?php echo $item['label']; ?>
-              </a>
+              <a class="nav-link" href="index.php">Accueil</a>
             </li>
-          <?php } ?>
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-          <?php if (isset($_SESSION['user'])) { ?>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="movie_list.php">Nos films</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown pl-3">
+                <button class="btn btn-outline-danger dropdown-toggle" type="button" data-toggle="dropdown">
+                  Nos catégories
+                </button>
                 <?php
-
-                /**
-                 * On se rend sur https://fr.gravatar.com/site/implement/images/
-                 * On peut créer un compte et y associer un avatar (lié à notre email).
-                 * On doit générer un hash de notre email avec md5().
-                 * On peut ensuite afficher une balise <img> avec un lien vers notre gravatar.
-                 */
-
-                $hash = md5($_SESSION['user']['email']);
-                echo $_SESSION['user']['email']; ?>
-
-                <img width="40" src="https://www.gravatar.com/avatar/<?= $hash; ?>" />
-              </a>
+                  /**
+                   * 1. Ici, on va devoir écrire la requête pour récupèrer les catégories du site
+                   * 2. Parcourir le tableau de catégorie et "remplir" le menu dropdown
+                   * BONUS/ Ranger le code précédent dans une fonction getCategories()
+                   * $categories = getCategories();
+                   */
+                  $categories = $db->query('SELECT * FROM category')->fetchAll();
+                  $categories = getCategories();
+                ?>
+                <div class="dropdown-menu">
+                  <?php foreach ($categories as $category) { ?>
+                    <a class="dropdown-item" href="movie_list.php?idCategory=<?= $category['id'] ?>">
+                      <?= $category['name']; ?>
+                    </a>
+                  <?php } ?>
+                </div>
+              </div>
             </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Recherche...">
+            <button class="btn btn-outline-danger my-2 my-sm-0">Go</button>
+          </form>
+          <?php
+            /**
+             * Ici, on va afficher l'email de l'utilisateur s'il est connecté (Se baser sur $_SESSION)
+             * Sinon, on affiche les liens vers Connexion et inscription.
+             * On va afficher l'avatar de l'utilisateur, on utilise gravatar
+             * La doc : https://fr.gravatar.com/site/implement/images/
+             * Vous créez un compte avec votre email, vous uploadez un avatar
+             * On affiche une balise img dans le header et on affiche un lien vers le gravatar
+             * https://www.gravatar.com/avatar/MD5 DE VOTRE EMAIL
+             */
+          ?>
+          <?php if (isset($_SESSION['user'])) { ?>
+            <ul class="navbar-nav ml-0 ml-lg-4">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="https://www.gravatar.com/avatar/<?= md5($_SESSION['user']['email']); ?>"
+                       width="40"
+                       class="rounded-circle mr-3"
+                  >
+                  <?= $_SESSION['user']['username']; ?>
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="account.php">Mon compte</a>
+                  <a class="dropdown-item" href="logout.php">Déconnexion</a>
+                </div>
+              </li>
+            </ul>
           <?php } else { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="sign-up.php">
-                Sign up
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">
-                Login
-              </a>
-            </li>
+            <ul class="navbar-nav ml-0 ml-lg-4">
+              <li class="nav-item">
+                <a class="btn btn-danger" href="login.php">Connexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="register.php">Inscription</a>
+              </li>
+            </ul>
           <?php } ?>
-        </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>

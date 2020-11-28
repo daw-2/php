@@ -13,7 +13,7 @@ if ($actor) {
 ?>
 
 <div class="container">
-    <h1>Les films de <?= $actor['firstname'].' '.$actor['lastname']; ?></h1>
+    <h1>Les films de <?= $actor['firstname'].' '.$actor['name']; ?></h1>
     <?php
         // On va chercher les films de l'acteur
         $movies = $db->query(
