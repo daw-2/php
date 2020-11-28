@@ -17,7 +17,7 @@ $categories = $query->fetchAll(); ?>
         <?php foreach ($categories as $category) { ?>
             <div class="col-md-3 mb-5">
                 <h2 class="text-center">
-                    <a href="category_single.php?id=<?php echo $category['id']; ?>">
+                    <a href="movie_list.php?idCategory=<?php echo $category['id']; ?>">
                         <?= $category['name']; ?>
                     </a>
                 </h2>

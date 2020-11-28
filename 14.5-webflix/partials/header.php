@@ -1,7 +1,7 @@
 <?php
   // On démarre les sessions
   session_start();
-
+  // Inclus les fichiers de configuration du site
   require_once __DIR__ . '/../config/config.php';
   require_once __DIR__ . '/../config/database.php';
   require_once __DIR__ . '/../config/functions.php';
@@ -40,11 +40,12 @@
                   Nos catégories
                 </button>
                 <?php
-                  // 1/ Ecrire la requête pour récupèrer les catégories du site
-                  // 2/ Parcourir le tableau de catégorie et "remplir" le menu dropdown
-                  // On peut s'inspirer de l'exercice sur le formulaire d'ajout de film
-                  // BONUS/ Ranger le code précédent dans une fonction getCategories()
-                  // $categories = getCategories();
+                  /**
+                   * 1. Ici, on va devoir écrire la requête pour récupèrer les catégories du site
+                   * 2. Parcourir le tableau de catégorie et "remplir" le menu dropdown
+                   * BONUS/ Ranger le code précédent dans une fonction getCategories()
+                   * $categories = getCategories();
+                   */
                   $categories = $db->query('SELECT * FROM category')->fetchAll();
                   $categories = getCategories();
                 ?>

@@ -1,7 +1,10 @@
-    <footer class="py-4 bg-dark mt-5">
+    <!-- Footer -->
+    <footer class="py-5 bg-dark mt-5">
       <div class="container">
         <p class="m-0 text-center text-white">
-          Copyright &copy; Webflix 2020
+          Copyright &copy;
+          <?php echo $siteName . ' ' . date('Y'); ?>
+          <?php // echo (new DateTime())->format('Y'); ?>
         </p>
       </div>
     </footer>

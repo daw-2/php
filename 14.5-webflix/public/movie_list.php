@@ -59,6 +59,24 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                                Supprimer</a>
                         <?php } ?>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            <?php
+                                // Je génére un nombre d'étoiles aléatoires
+                                $stars = rand(0, 5);
+                                // J'affiche mes 5 étoiles
+                                for ($i = 1; $i <= 5; $i++) {
+                                    // J'affiche les étoiles pleines si l'itération est inférieure
+                                    // au nombre aléatoire $stars
+                                    if ($i <= $stars) {
+                                    echo '★ ';
+                                    } else {
+                                    echo '☆ ';
+                                    }
+                                }
+                            ?>
+                        </small>
+                    </div>
                 </div>
             </div>
         <?php } ?>
