@@ -95,9 +95,9 @@ if (!empty($_POST)) {
         /**
          * Afficher les erreurs
          */
-        echo '<div class="container">';
+        echo '<div class="container alert alert-danger">';
         foreach ($errors as $error) {
-            echo '<div class="alert alert-danger">'.$error.'</div>';
+            echo '<p class="text-danger m-0">'.$error.'</p>';
         }
         echo '</div>';
     }
@@ -107,6 +107,8 @@ if (!empty($_POST)) {
 ?>
 
 <div class="container">
+    <h1 class="text-center">Ajouter un film</h1>
+
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
             <form action="" method="post" enctype="multipart/form-data">

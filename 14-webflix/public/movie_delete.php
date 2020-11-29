@@ -1,6 +1,7 @@
 <?php
 
 // Je veux supprimer un film
+// Attention, on vérifie que l'utilisateur soit bien un administrateur
 
 // Connexion à la bdd
 session_start();

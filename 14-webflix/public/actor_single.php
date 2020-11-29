@@ -1,5 +1,7 @@
 <?php
 
+// Ici on affiche la page d'un acteur avec les films dans lesquels il a joué
+
 // Inclure le header
 require __DIR__ . '/../partials/header.php';
 

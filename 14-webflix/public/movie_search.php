@@ -2,6 +2,9 @@
 
 /**
  * 1/ Dans ce fichier, on doit afficher les films par rapport à la recherche.
+ * 2/ On doit récupérer le paramètre q dans l'URL
+ * 3/ Grâce à ce paramètre, on peut faire la bonne requête SQL (avec le LIKE)
+ * 4/ On affiche ensuite les films comme sur les autres pages.
  */
 
 // Inclure le header

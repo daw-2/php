@@ -4,7 +4,9 @@ On va créer un clone de Netflix afin d'apprendre à créer un projet en PHP / S
 
 ## Fonctionalités attendues
 
-Le client nous a donné une liste de maquettes, ce qui va nous permettre de déduire les fonctionnalités à développer sur le site. Etant donné que nous sommes stagiaire dans l'entreprise, notre tuteur nous a également donné quelques informations.
+Le client nous a donné une liste de maquettes, ce qui va nous permettre de déduire les fonctionnalités à développer sur le site. Etant donné que nous sommes stagiaire dans l'entreprise, notre tuteur nous a également donné quelques informations pour la réalisation technique.
+
+Optionnellement, on pourra réaliser un back office pour que l'administrateur puisse gérer les films.
 
 ## Partie Back
 

@@ -20,7 +20,53 @@ $id = intval($_GET['id'] ?? 0); // Je récupère l'id du film dans l'url et je v
 $movie = $db->query('SELECT * FROM movie WHERE id = '.$id)->fetch();
 
 // Si le film existe
-if ($movie) { 
+if ($movie) {
+
+    // Ici, on ajoute un commentaire s'il y a un traitement à faire (si le formulaire a été soumis)
+    if (!empty($_POST)) {
+        $nickname = $_POST['nickname'];
+        $message = $_POST['message'];
+        $note = $_POST['note'];
+
+        $errors = [];
+
+        if (empty($nickname)) {
+            $errors['nickname'] = 'Le pseudo est vide';
+        }
+
+        if (strlen($message) < 15) {
+            $errors['message'] = 'Le message est trop court';
+        }
+
+        if ($note < 0 || $note > 5) {
+            $errors['note'] = 'La note n\'est pas valide';
+        }
+
+        // On fait la requête
+        if (empty($errors)) {
+            $query = $db->prepare(
+                'INSERT INTO comment (nickname, message, note, created_at, movie_id)
+                VALUES (:nickname, :message, :note, NOW(), :movie_id)'
+            );
+            $query->bindValue(':nickname', $nickname);
+            $query->bindValue(':message', $message);
+            $query->bindValue(':note', $note);
+            $query->bindValue(':movie_id', $movie['id']);
+            $query->execute();
+
+            header('Location: movie_single.php?id='.$movie['id']);
+        } else {
+            /**
+             * Afficher les erreurs
+             */
+            echo '<div class="container alert alert-danger">';
+            foreach ($errors as $error) {
+                echo '<p class="text-danger m-0">'.$error.'</p>';
+            }
+            echo '</div>';
+        }
+    }
+
 ?>
 
 <div class="container">
@@ -107,7 +153,43 @@ if ($movie) {
 
             <div class="card shadow-lg rounded-lg mt-5">
                 <div class="card-body">
-                    Commentaires ?
+                    <?php
+                        // Ici, on récupère les commentaires du film pour les afficher
+                        $comments = $db->query('SELECT * FROM comment WHERE movie_id = '.$movie['id']);
+
+                        foreach ($comments as $comment) {
+                    ?>
+
+                        <div class="mb-3">
+                            <p class="mb-0"><strong><?= $comment['nickname']; ?></strong> <span style="font-size: 10px">le <?= date('d/m/Y à H\hi', strtotime($comment['created_at'])); ?></span></p>
+                            <p><?= $comment['message']; ?> <?= $comment['note']; ?>/5</p>
+                        </div>
+                        <hr>
+
+                    <?php } ?>
+
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="nickname">Pseudo</label>
+                            <input type="text" class="form-control" name="nickname" id="nickname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note">Note</label>
+                            <select name="note" id="note" class="form-control">
+                                <?php for ($i = 0; $i <= 5; $i++) { ?>
+                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-danger btn-block">Envoyer</button>
+                    </form>
                 </div>
             </div>
         </div>
